@@ -49,6 +49,10 @@ def delete_process(id)
   File.delete("memo/#{@id}")
 end
 
+get "/" do
+  redirect to('/memos')
+end
+
 get "/memos" do
   erb :top
 end
