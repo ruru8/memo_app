@@ -1,8 +1,8 @@
-<form action="/new" method="post">
+<form action="/memos" method="post">
   <span class="m-0 font-small gray">タイトル</span>
   <input type ="text" name="name" value="メモ<%= @@id_syms.length%>" required>
   <div>
-    <textarea id="2" name="memo" rows="5" cols="40" placeholder="memo wtite write write"></textarea>
+    <textarea name="memo" rows="5" cols="40" placeholder="memo wtite write write"></textarea>
   </div>
   <div class="text-center">
     <input type="submit" value="作成" class="font-normal push write">

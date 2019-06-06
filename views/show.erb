@@ -5,8 +5,8 @@
   <span class="font-small">内容: </span><span class=""><%= @content %></span>
 </div>
 <div>
-<button class="push change"><a href="/edit/<%= @id %>" class="font-normal white">変更</a></button>
-<form class="d-inline" method="post" action="/delete/<%= @id %>">
+<button class="push change"><a href="/memos/<%= @id %>/edit" class="font-normal white">変更</a></button>
+<form class="d-inline" method="post" action="/memos/<%= @id %>/delete">
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="消す" class="push delete font-normal">
 </form>

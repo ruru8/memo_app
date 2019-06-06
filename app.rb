@@ -49,36 +49,36 @@ def delete_process(id)
   File.delete("memo/#{@id}")
 end
 
-get "/" do
+get "/memos" do
   erb :top
 end
 
-get "/new" do
+get "/memos/new" do
   erb :new
 end
 
-post "/new" do
+post "/memos" do
   @content = @params[:memo]
   write_process(@content.object_id, @params[:name], @content)
   erb :top
 end
 
-get "/show/*" do |id|
+get "/memos/*/" do |id|
   read_process(id)
   erb :show
 end
 
-delete "/delete/*" do |id|
+delete "/memos/*/delete" do |id|
   delete_process(id)
   erb :delete
 end
 
-get "/edit/*" do |id|
+get "/memos/*/edit" do |id|
   read_process(id)
   erb :edit
 end
 
-patch "/edit-compleate/*" do |id|
+patch "/memos/*/edit-complete" do |id|
   write_process(id, @params[:name], @params[:memo])
   erb :edit_complete
 end
