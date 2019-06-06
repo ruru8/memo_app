@@ -1,0 +1,8 @@
+<ul class="font-normal text-center">
+  <% (0...@@id_syms.length).each do |i| %>
+    <% if @@id_syms[i] != nil  %>
+    <li class="m-0-auto text-left"><a href= "/show/<%= @@id_syms[i] %>"><%= @@call_title[@@id_syms[i]] %></a></li>
+    <% end %>
+  <% end %>
+</ul>
+<button class="push add"><a href="/new" class="white">新しいメモを書く</a></button>

@@ -1,0 +1,11 @@
+<form action="/edit-compleate/<%= @id %>" method="post">
+  <span class="m-0 font-small gray">タイトル</span>
+  <input type ="text" name="name" value="<%= @title %>" required>
+  <div>
+    <textarea name="memo" rows="5" cols="40"><%= @content %></textarea>
+  </div>
+  <div class="text-center">
+    <input type="hidden" name="_method" value="PATCH">
+    <input type="submit" value="上書き保存" class="font-normal push write">
+  </div>
+</form>

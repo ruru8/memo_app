@@ -1,0 +1,125 @@
+/* 
+*
+* style.css
+*
+*/
+
+
+html {
+  background: #ffe4e1;
+  width: 600px;
+  margin: 0 auto;
+}
+body {
+  background: #fff5ee;
+}
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-size: 16px;
+  color: gray;
+  font-weight: normal;
+}
+span {
+  font-size: 16px;
+  color: gray;
+  font-weight: normal;
+}
+button {
+  padding: 5px 10px;
+  border: none;
+  font-size: 15px;
+  background: #fff5ee;
+  border-radius: 8px;
+}
+a {
+  text-decoration: none;
+  color: dimgray;
+}
+
+input, textarea {
+  color: dimgray;
+}
+ul {
+  list-style-type: circle;
+  padding: 5px;
+}
+li {
+  font-weight: normal;
+  width: 30%;
+}
+
+/* レイアウト */
+  .w-300 {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  .title {
+    color: #a9a9a9;
+    background: #ffe4e1;
+  }
+
+/* ボタン */
+  /* 共通 */
+  .push {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px grey;
+    color: white;
+    cursor: pointer;
+  }
+  /* 新しく作成する */
+  .add {
+    background: #ffb6c1;
+  }
+  /* 作成 */
+  .write {
+    width: 70%;
+    background: #87cefa;
+  }
+  /* 上書き保存 */
+  .change {
+    background: #87cefa;
+  }
+  /* 消去 */
+  .delete {
+    width: 20%;
+    padding: 5px 10px;
+    background: #ffa07a;
+  }
+
+/* 文字 */
+  /* 文字揃え */
+  .text-center {
+    text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  /* サイズ */
+  .font-normal {
+    font-size: 16px;
+  }
+  .font-small {
+    font-size: 12px;
+  }
+  /* 色 */
+  .gray {
+    color: gray;
+  }
+  .white {
+    color: white;
+  }
+
+/* その他スタイル */
+  .py {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .m-0-auto {
+    margin: 0 auto;
+  }
+  .d-inline {
+    display: inline;
+  }
