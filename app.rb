@@ -72,7 +72,7 @@ get "/memos/*/" do |id|
   erb :show
 end
 
-delete "/memos/*/delete" do |id|
+delete "/memos/*/" do |id|
   delete_process(id)
   erb :delete
 end
@@ -82,7 +82,7 @@ get "/memos/*/edit" do |id|
   erb :edit
 end
 
-patch "/memos/*/edit-complete" do |id|
+patch "/memos/*/" do |id|
   write_process(id, @params[:name], @params[:memo])
   erb :edit_complete
 end
