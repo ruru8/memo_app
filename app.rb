@@ -2,58 +2,52 @@
 
 require "sinatra"
 require "sinatra/reloader"
+require "csv"
 
-# 配列確保
-@@call_title = {}
-@@id_syms = []
-
-def id_process(id)
+def read(id)
   @id = id
-  @id_sym = @id.to_s.to_sym
-end
-
-def read_process(id)
-  @id = id
-  @id_sym = @id.to_s.to_sym
-  @title = @@call_title[@id_sym]
-  File.open("memo/#{@id}", "r") do |file|
-    @content = file.read
+  csv = CSV.read("memos.csv", headers: true)
+  csv.each do |row|
+    if row["id"] == @id
+      @title = row["title"]
+      @content = row["content"]
+    end
   end
 end
 
-def write_process(id, title, content)
+def write(id, title, content)
   @id = id
   @title = title
   @content = content
-  @id_sym = @id.to_s.to_sym
-  @@call_title[@id_sym] = @title
-  # 編集
-  if File.exist?("memo/#{@id}")
-    File.open("memo/#{@id}", "r+") do |file|
-      file.puts @content
-    end
-  # 新規作成
-  else
-    @@id_syms.push(@id_sym)
-    File.open("memo/#{@id}", "w") do |file|
-      file.puts @content
+  CSV.open("memos.csv", "a") do |csv|
+    csv << [@id, @title, @content]
+  end
+end
+
+def delete(id)
+  @id = id
+  csv_table = CSV.table("memos.csv", headers: true)
+  csv_table.by_row!
+  csv_table.delete_if { |row| row.field?(@id.to_i) }
+  CSV.open("memos.csv", "w") do |csv|
+    csv << ["id", "title", "content"]
+    csv_table.each do |row|
+      csv << row
     end
   end
 end
 
-def delete_process(id)
-  @id = id
-  @id_sym = @id.to_s.to_sym
-  @@call_title.delete(@id_sym)
-  @@id_syms.delete(@id_sym)
-  File.delete("memo/#{@id}")
+def rewrite(id, title, content)
+  delete(id)
+  write(id, title, content)
 end
 
 get "/" do
-  redirect to('/memos')
+  redirect to("/memos")
 end
 
 get "/memos" do
+  @csv = CSV.read("memos.csv", headers: true)
   erb :top
 end
 
@@ -62,27 +56,27 @@ get "/memos/new" do
 end
 
 post "/memos" do
-  @content = @params[:memo]
-  write_process(@content.object_id, @params[:name], @content)
+  write(@content.object_id, @params[:name], @params[:memo])
+  @csv = CSV.read("memos.csv", headers: true)
   erb :top
 end
 
 get "/memos/*/" do |id|
-  read_process(id)
+  read(id)
   erb :show
 end
 
 delete "/memos/*/" do |id|
-  delete_process(id)
+  delete(id)
   erb :delete
 end
 
 get "/memos/*/edit" do |id|
-  read_process(id)
+  read(id)
   erb :edit
 end
 
 patch "/memos/*/" do |id|
-  write_process(id, @params[:name], @params[:memo])
+  rewrite(id, @params[:name], @params[:memo])
   erb :edit_complete
 end

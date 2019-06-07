@@ -1,8 +1,6 @@
 <ul class="font-normal text-center">
-  <% (0...@@id_syms.length).each do |i| %>
-    <% if @@id_syms[i] != nil  %>
-    <li class="m-0-auto text-left"><a href= "/memos/<%= @@id_syms[i] %>/"><%= @@call_title[@@id_syms[i]] %></a></li>
-    <% end %>
+  <% @csv.reverse_each do |data| %>
+    <li class="m-0-auto text-left"><a href= "/memos/<%= data["id"] %>/"><%= data["title"] %></a></li>
   <% end %>
 </ul>
 <button class="push add"><a href="/memos/new" class="white">新しいメモを書く</a></button>
