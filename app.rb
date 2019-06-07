@@ -56,27 +56,28 @@ get "/memos/new" do
 end
 
 post "/memos" do
-  write(@content.object_id, @params[:name], @params[:memo])
+  @content = @params[:memo]
+  write(@content.object_id, @params[:name], @content)
   @csv = CSV.read("memos.csv", headers: true)
   erb :top
 end
 
-get "/memos/*/" do |id|
+get "/memos/:id" do |id|
   read(id)
   erb :show
 end
 
-delete "/memos/*/" do |id|
+delete "/memos/:id" do |id|
   delete(id)
   erb :delete
 end
 
-get "/memos/*/edit" do |id|
+get "/memos/:id/edit" do |id|
   read(id)
   erb :edit
 end
 
-patch "/memos/*/" do |id|
+patch "/memos/:id" do |id|
   rewrite(id, @params[:name], @params[:memo])
   erb :edit_complete
 end

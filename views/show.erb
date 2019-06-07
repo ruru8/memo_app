@@ -6,7 +6,7 @@
 </div>
 <div>
 <button class="push change"><a href="/memos/<%= @id %>/edit" class="font-normal white">変更</a></button>
-<form class="d-inline" method="post" action="/memos/<%= @id %>/">
+<form class="d-inline" method="post" action="/memos/<%= @id %>">
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="消す" class="push delete font-normal">
 </form>
