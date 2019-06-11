@@ -1,5 +1,5 @@
 <ul class="font-normal text-center">
-  <% @csv.reverse_each do |data| %>
+  <% @csv.each do |data| %>
     <li class="m-0-auto text-left"><a href= "/memos/<%= data["id"] %>"><%= data["title"] %></a></li>
   <% end %>
 </ul>

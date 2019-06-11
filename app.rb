@@ -5,12 +5,11 @@ require "sinatra/reloader"
 require "csv"
 
 def read(id)
-  #@id = id
-  csv = CSV.read("memos.csv", headers: true)
-  csv.each do |row|
-    if row["id"] == @id
-      @title = row["title"]
-      @content = row["content"]
+  csv_table = CSV.table("memos.csv", headers: true)
+  csv_table.each do |row|
+    if row[:id] == id.to_i
+      @title = row[:title]
+      @content = row[:content]
     end
   end
 end
@@ -27,8 +26,7 @@ end
 def delete(id)
   @id = id
   csv_table = CSV.table("memos.csv", headers: true)
-  csv_table.by_row!
-  csv_table.delete_if { |row| row.field?(@id.to_i) }
+  csv_table.delete_if { |row| row[:id] == id.to_i }
   CSV.open("memos.csv", "w") do |csv|
     csv << ["id", "title", "content"]
     csv_table.each do |row|
@@ -38,9 +36,17 @@ def delete(id)
 end
 
 def rewrite(id, title, content)
-  #findメソッド
-  delete(id)
-  write(id, title, content)
+  @id = id
+  csv_table = CSV.table("memos.csv", headers: true)
+  csv_row = csv_table.find { |row| row[:id] == id.to_i }
+  csv_row[:title] = title
+  csv_row[:content] = content
+  CSV.open("memos.csv", "w") do |csv|
+    csv << ["id", "title", "content"]
+    csv_table.each do |row|
+      csv << row
+    end
+  end
 end
 
 get "/" do
@@ -57,14 +63,15 @@ get "/memos/new" do
 end
 
 post "/memos" do
-  @content = @params[:memo]
-  write(@content.object_id, @params[:name], @content)
+  @content = params[:memo]
+  write(@content.object_id, params[:name], @content)
   @csv = CSV.read("memos.csv", headers: true)
   erb :top
 end
 
 get "/memos/:id" do |id|
-  read(id)
+  @id = id
+  read(@id)
   erb :show
 end
 
@@ -74,11 +81,13 @@ delete "/memos/:id" do |id|
 end
 
 get "/memos/:id/edit" do |id|
-  read(id)
+  @id = id
+  read(@id)
   erb :edit
 end
 
 patch "/memos/:id" do |id|
-  rewrite(id, @params[:name], @params[:memo])
+  @id = id
+  rewrite(@id, params[:name], params[:memo])
   erb :edit_complete
 end
