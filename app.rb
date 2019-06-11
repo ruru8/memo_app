@@ -5,7 +5,7 @@ require "sinatra/reloader"
 require "csv"
 
 def read(id)
-  @id = id
+  #@id = id
   csv = CSV.read("memos.csv", headers: true)
   csv.each do |row|
     if row["id"] == @id
@@ -38,6 +38,7 @@ def delete(id)
 end
 
 def rewrite(id, title, content)
+  #findメソッド
   delete(id)
   write(id, title, content)
 end
