@@ -1,3 +1,7 @@
 memo/*
 !.gitkeep
 
+# Ignore bundler config.
+/.bundle
+/vendor/*
+
