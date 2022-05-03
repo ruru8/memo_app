@@ -8,5 +8,5 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'rack', '>= 2.0.8'
 gem 'redcarpet'
-gem 'sinatra', '~> 2.0'
+gem 'sinatra', '~> 2.2'
 gem 'sinatra-contrib'
